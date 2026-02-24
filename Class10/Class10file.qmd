@@ -1,0 +1,124 @@
+---
+title: "Class10: Structural Bioinformatics 1"
+author: "Gavin Ambrose PID: A18548522"
+format: html
+toc: true
+---
+
+## PDB statistics
+
+THe Protein Data Bank (PDB)is the main repository of biomolecular strucutres. Let's see what it contains:
+
+Download a CSV file from the PDB site (accessible from “Analyze” > “PDB Statistics” > “by Experimental Method and Molecular Type”
+
+```{r}
+stats <- read.csv("Data Export Summary.csv")
+stats
+```
+
+> Q1: What percentage of structures in the PDB are solved by X-Ray and Electron Microscopy.
+
+```{r}
+#sum(stats$X.ray)
+```
+
+```{r}
+
+sum(stats$Neutron)
+```
+
+The comma in these number leads to the numbers here being read as characters
+
+```{r}
+library(readr)
+stats <- read_csv("Data Export Summary.csv")
+stats
+```
+
+> Q1: What percentage of structures in the PDB are solved by X-Ray and Electron Microscopy.
+
+```{r}
+(sum(stats$`X-ray`) + sum(stats$EM))/sum(stats$Total)
+
+```
+
+THe structures of X-ray and Electron Microscopy make up 93.78% of the data.
+
+> Q2: What proportion of structures in the PDB are protein?
+
+```{r}
+(stats[1,9])/sum(stats$Total)
+```
+
+The proportion is 85%
+
+> Q3: SKIP... Looking up HIV structures including 1HSG
+
+## Visualizing the HIV-1 protease structure
+
+We can use the Molstar viewer online: https://molstar.org/viewer/
+
+![Figure 1: HIV Protease](1HSG.png)
+
+> Q4: Water molecules normally have 3 atoms. Why do we see just one atom per water molecule in this structure?
+
+This is because the molecular model is only showing the central oxygen atom of the water, not the two additional hydrogens
+
+> Q5: There is a critical “conserved” water molecule in the binding site. Can you identify this water molecule? What residue number does this water molecule have
+
+This water molecule has a residue number of HOH 308
+
+> Q6: Generate and save a figure clearly showing the two distinct chains of HIV-protease along with the ligand. You might also consider showing the catalytic residues ASP 25 in each chain and the critical water (we recommend “Ball & Stick” for these side-chains). Add this figure to your Quarto document.
+
+![Figure 2: ASP 25 and the important active site water molecule](1HSG-ligand)
+
+## Introduction to Bio3D in R
+
+```{r}
+library(bio3d)
+pdb <- read.pdb("1hsg")
+pdb
+```
+
+> Q7: How many amino acid residues are there in this pdb object? 
+
+There are 128 amino acids
+
+> Q8: Name one of the two non-protein residues? 
+
+There is both water molecules and MK1, merk 1
+
+> Q9: How many protein chains are in this structure? 
+
+There are 2 protein chains
+
+```{r}
+head(pdb$atom)
+```
+
+## Predicting functional motions of a single structure
+
+Read an ADK structure from the pdb database
+
+```{r}
+adk <- read.pdb("6s36")
+adk
+```
+
+```{r}
+m <- nma(adk)
+plot(m)
+```
+
+Write our our results as a new trajectory/movie of predicted motions using `mktrj`
+
+```{r}
+mktrj(m, file="adk_m7.pdb")
+```
+
+
+
+
+
+
+

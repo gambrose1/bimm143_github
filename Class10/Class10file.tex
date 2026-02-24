@@ -1,0 +1,571 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Class10: Structural Bioinformatics 1},
+  pdfauthor={Gavin Ambrose PID: A18548522},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Class10: Structural Bioinformatics 1}
+\author{Gavin Ambrose PID: A18548522}
+\date{}
+\begin{document}
+\maketitle
+
+\renewcommand*\contentsname{Table of contents}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+
+\subsection{PDB statistics}\label{pdb-statistics}
+
+THe Protein Data Bank (PDB)is the main repository of biomolecular
+strucutres. Let's see what it contains:
+
+Download a CSV file from the PDB site (accessible from ``Analyze''
+\textgreater{} ``PDB Statistics'' \textgreater{} ``by Experimental
+Method and Molecular Type''
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{stats }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"Data Export Summary.csv"}\NormalTok{)}
+\NormalTok{stats}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+           Molecular.Type   X.ray     EM    NMR Integrative Multiple.methods
+1          Protein (only) 178,795 21,825 12,773         343              226
+2 Protein/Oligosaccharide  10,363  3,564     34           8               11
+3              Protein/NA   9,106  6,335    287          24                7
+4     Nucleic acid (only)   3,132    221  1,566           3               15
+5                   Other     175     25     33           4                0
+6  Oligosaccharide (only)      11      0      6           0                1
+  Neutron Other   Total
+1      84    32 214,078
+2       1     0  13,981
+3       0     0  15,759
+4       3     1   4,941
+5       0     0     237
+6       0     4      22
+\end{verbatim}
+
+\begin{quote}
+Q1: What percentage of structures in the PDB are solved by X-Ray and
+Electron Microscopy.
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#sum(stats$X.ray)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sum}\NormalTok{(stats}\SpecialCharTok{$}\NormalTok{Neutron)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 88
+\end{verbatim}
+
+The comma in these number leads to the numbers here being read as
+characters
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readr)}
+\NormalTok{stats }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"Data Export Summary.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Rows: 6 Columns: 9
+-- Column specification --------------------------------------------------------
+Delimiter: ","
+chr (1): Molecular Type
+dbl (4): Integrative, Multiple methods, Neutron, Other
+num (4): X-ray, EM, NMR, Total
+
+i Use `spec()` to retrieve the full column specification for this data.
+i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{stats}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 6 x 9
+  `Molecular Type`    `X-ray`    EM   NMR Integrative `Multiple methods` Neutron
+  <chr>                 <dbl> <dbl> <dbl>       <dbl>              <dbl>   <dbl>
+1 Protein (only)       178795 21825 12773         343                226      84
+2 Protein/Oligosacch~   10363  3564    34           8                 11       1
+3 Protein/NA             9106  6335   287          24                  7       0
+4 Nucleic acid (only)    3132   221  1566           3                 15       3
+5 Other                   175    25    33           4                  0       0
+6 Oligosaccharide (o~      11     0     6           0                  1       0
+# i 2 more variables: Other <dbl>, Total <dbl>
+\end{verbatim}
+
+\begin{quote}
+Q1: What percentage of structures in the PDB are solved by X-Ray and
+Electron Microscopy.
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\FunctionTok{sum}\NormalTok{(stats}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{X{-}ray}\StringTok{\textasciigrave{}}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{sum}\NormalTok{(stats}\SpecialCharTok{$}\NormalTok{EM))}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(stats}\SpecialCharTok{$}\NormalTok{Total)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.937892
+\end{verbatim}
+
+THe structures of X-ray and Electron Microscopy make up 93.78\% of the
+data.
+
+\begin{quote}
+Q2: What proportion of structures in the PDB are protein?
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(stats[}\DecValTok{1}\NormalTok{,}\DecValTok{9}\NormalTok{])}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(stats}\SpecialCharTok{$}\NormalTok{Total)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      Total
+1 0.8596889
+\end{verbatim}
+
+The proportion is 85\%
+
+\begin{quote}
+Q3: SKIP\ldots{} Looking up HIV structures including 1HSG
+\end{quote}
+
+\subsection{Visualizing the HIV-1 protease
+structure}\label{visualizing-the-hiv-1-protease-structure}
+
+We can use the Molstar viewer online: https://molstar.org/viewer/
+
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{1HSG.png}}
+
+}
+
+\caption{Figure 1: HIV Protease}
+
+\end{figure}%
+
+\begin{quote}
+Q4: Water molecules normally have 3 atoms. Why do we see just one atom
+per water molecule in this structure?
+\end{quote}
+
+This is because the molecular model is only showing the central oxygen
+atom of the water, not the two additional hydrogens
+
+\begin{quote}
+Q5: There is a critical ``conserved'' water molecule in the binding
+site. Can you identify this water molecule? What residue number does
+this water molecule have
+\end{quote}
+
+This water molecule has a residue number of HOH 308
+
+\begin{quote}
+Q6: Generate and save a figure clearly showing the two distinct chains
+of HIV-protease along with the ligand. You might also consider showing
+the catalytic residues ASP 25 in each chain and the critical water (we
+recommend ``Ball \& Stick'' for these side-chains). Add this figure to
+your Quarto document.
+\end{quote}
+
+\begin{figure}[H]
+
+{\centering \pandocbounded{\includegraphics[keepaspectratio]{1HSG-ligand.pdf}}
+
+}
+
+\caption{Figure 2: ASP 25 and the important active site water molecule}
+
+\end{figure}%
+
+\subsection{Introduction to Bio3D in
+R}\label{introduction-to-bio3d-in-r}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(bio3d)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning: package 'bio3d' was built under R version 4.4.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pdb }\OtherTok{\textless{}{-}} \FunctionTok{read.pdb}\NormalTok{(}\StringTok{"1hsg"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  Note: Accessing on-line PDB file
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pdb}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+ Call:  read.pdb(file = "1hsg")
+
+   Total Models#: 1
+     Total Atoms#: 1686,  XYZs#: 5058  Chains#: 2  (values: A B)
+
+     Protein Atoms#: 1514  (residues/Calpha atoms#: 198)
+     Nucleic acid Atoms#: 0  (residues/phosphate atoms#: 0)
+
+     Non-protein/nucleic Atoms#: 172  (residues: 128)
+     Non-protein/nucleic resid values: [ HOH (127), MK1 (1) ]
+
+   Protein sequence:
+      PQITLWQRPLVTIKIGGQLKEALLDTGADDTVLEEMSLPGRWKPKMIGGIGGFIKVRQYD
+      QILIEICGHKAIGTVLVGPTPVNIIGRNLLTQIGCTLNFPQITLWQRPLVTIKIGGQLKE
+      ALLDTGADDTVLEEMSLPGRWKPKMIGGIGGFIKVRQYDQILIEICGHKAIGTVLVGPTP
+      VNIIGRNLLTQIGCTLNF
+
++ attr: atom, xyz, seqres, helix, sheet,
+        calpha, remark, call
+\end{verbatim}
+
+\begin{quote}
+Q7: How many amino acid residues are there in this pdb object?
+\end{quote}
+
+There are 128 amino acids
+
+\begin{quote}
+Q8: Name one of the two non-protein residues?
+\end{quote}
+
+There is both water molecules and MK1, merk 1
+
+\begin{quote}
+Q9: How many protein chains are in this structure?
+\end{quote}
+
+There are 2 protein chains
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(pdb}\SpecialCharTok{$}\NormalTok{atom)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  type eleno elety  alt resid chain resno insert      x      y     z o     b
+1 ATOM     1     N <NA>   PRO     A     1   <NA> 29.361 39.686 5.862 1 38.10
+2 ATOM     2    CA <NA>   PRO     A     1   <NA> 30.307 38.663 5.319 1 40.62
+3 ATOM     3     C <NA>   PRO     A     1   <NA> 29.760 38.071 4.022 1 42.64
+4 ATOM     4     O <NA>   PRO     A     1   <NA> 28.600 38.302 3.676 1 43.40
+5 ATOM     5    CB <NA>   PRO     A     1   <NA> 30.508 37.541 6.342 1 37.87
+6 ATOM     6    CG <NA>   PRO     A     1   <NA> 29.296 37.591 7.162 1 38.40
+  segid elesy charge
+1  <NA>     N   <NA>
+2  <NA>     C   <NA>
+3  <NA>     C   <NA>
+4  <NA>     O   <NA>
+5  <NA>     C   <NA>
+6  <NA>     C   <NA>
+\end{verbatim}
+
+\subsection{Predicting functional motions of a single
+structure}\label{predicting-functional-motions-of-a-single-structure}
+
+Read an ADK structure from the pdb database
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{adk }\OtherTok{\textless{}{-}} \FunctionTok{read.pdb}\NormalTok{(}\StringTok{"6s36"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  Note: Accessing on-line PDB file
+   PDB has ALT records, taking A only, rm.alt=TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{adk}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+ Call:  read.pdb(file = "6s36")
+
+   Total Models#: 1
+     Total Atoms#: 1898,  XYZs#: 5694  Chains#: 1  (values: A)
+
+     Protein Atoms#: 1654  (residues/Calpha atoms#: 214)
+     Nucleic acid Atoms#: 0  (residues/phosphate atoms#: 0)
+
+     Non-protein/nucleic Atoms#: 244  (residues: 244)
+     Non-protein/nucleic resid values: [ CL (3), HOH (238), MG (2), NA (1) ]
+
+   Protein sequence:
+      MRIILLGAPGAGKGTQAQFIMEKYGIPQISTGDMLRAAVKSGSELGKQAKDIMDAGKLVT
+      DELVIALVKERIAQEDCRNGFLLDGFPRTIPQADAMKEAGINVDYVLEFDVPDELIVDKI
+      VGRRVHAPSGRVYHVKFNPPKVEGKDDVTGEELTTRKDDQEETVRKRLVEYHQMTAPLIG
+      YYSKEAEAGNTKYAKVDGTKPVAEVRADLEKILG
+
++ attr: atom, xyz, seqres, helix, sheet,
+        calpha, remark, call
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m }\OtherTok{\textless{}{-}} \FunctionTok{nma}\NormalTok{(adk)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ Building Hessian...        Done in 0.01 seconds.
+ Diagonalizing Hessian...   Done in 0.34 seconds.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(m)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{Class10file_files/figure-pdf/unnamed-chunk-10-1.pdf}}
+
+Write our our results as a new trajectory/movie of predicted motions
+using \texttt{mktrj}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mktrj}\NormalTok{(m, }\AttributeTok{file=}\StringTok{"adk\_m7.pdb"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+
+
+
+
+\end{document}
