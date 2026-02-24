@@ -1,0 +1,186 @@
+---
+title: "Class 5: Data Vis with ggplot"
+author: "Gavin Ambrose (PID: A18548522)"
+format: pdf
+toc: true
+---
+
+## Background
+
+There are lots of ways to make figures in R. These include so-called "base R" graphics (e.g. `plot()`) and tons of add-on packages like **ggplot2**.
+
+For example, here we make the same plot with both:
+
+```{r}
+head(cars)
+
+plot(cars)
+```
+
+First, I need to install the package with the command `install.packages()`.
+
+>**NB** We never run an installl cmd in a quartro code chunk or we will end up re-installing packages many, many times - which is not what we want!
+
+Every time we want to use one of these "add-ons" packages, we need to load it up with the `library()` function.
+
+```{r}
+library(ggplot2)
+
+ggplot(cars)
+```
+
+Every ggplot needs at least 3 things:
+
+- The **data**, the stuff you want plotted
+- The **aes**thitics, , how the data map to the plot
+- The **geom**etry, the type of plot
+
+Add a line to better show relationship between speed and dist wtih `geom_smooth()` and setting `method = "lm"`
+
+```{r}
+P <- ggplot(cars) +
+  aes(x = speed, y = dist) +
+  geom_point() +
+  geom_smooth(method = "lm", se= FALSE) +
+  labs(title = "Stopping Distance of Old Cars", 
+       subtitle = "Data from the `cars` object",
+       x = "Speed (mph)",
+       y = "Distance (ft)")
+
+```
+
+Titles can be added using the `labs()` function
+
+
+By saving it as a variable, it doesn't print the chart, let's render it out
+
+```{r}
+P
+```
+
+```{r}
+P + theme_minimal()
+```
+
+By using `theme_minimal`, it removes the the gray background from the ggplot
+
+The `plot()` cmd is *less code*, but gives *less formatting options*. The `ggplot()` cmd is *more code*, but has *more formatting options* available
+
+## Gene expression plot
+
+We can read the input data from the class website!
+
+```{r}
+url <- "https://bioboot.github.io/bimm143_S20/class-material/up_down_expression.txt"
+genes <- read.delim(url)
+head(genes)
+```
+
+A first version plot
+
+```{r}
+ggplot(genes,) +
+  aes(Condition1, Condition2) +
+  geom_point()
+```
+
+
+```{r}
+table(genes$State)
+```
+
+Version 2, let's color by `State` so we can see the "up" and "down" significant genes compared to all the "unchanged" genes
+
+```{r}
+ggplot(genes,) +
+  aes(Condition1, Condition2, col = State) +
+  geom_point()
+```
+
+Version 3, let's modify the default colors to something we like.
+
+```{r}
+ggplot(genes,) +
+  aes(Condition1, Condition2, col = State) +
+  geom_point() +
+  scale_color_manual(values = c("darkblue", "gray50", "darkred")) + labs(x = "Control (No Drug)",y = "No Drug", title = "Gene Expression Changes upon GLP-1 Drug") +
+  theme_minimal()
+```
+
+## Going Further
+
+Let's have a look at the famous **gapminder** dataset
+
+```{r}
+url <- "https://raw.githubusercontent.com/jennybc/gapminder/master/inst/extdata/gapminder.tsv"
+
+gapminder <- read.delim(url)
+
+head(gapminder, 3)
+```
+
+```{r}
+ggplot(gapminder) +
+  aes(gdpPercap, lifeExp, col = continent) +
+geom_point(alpha = 0.5)
+```
+
+Let's "facet" (i.e. make a separate plot) by continent rather than the big hot mess above.
+
+```{r}
+ggplot(gapminder) +
+  aes(gdpPercap, lifeExp, col = continent) +
+geom_point(alpha = 0.5) + 
+  facet_wrap(~continent) + 
+  labs(x = "GDP per Capita", y = "Life Expectancy", title = "Life Expectancy based on GDP per Capita", subtitle = "Graph Seperated by Continent")
+```
+
+## Custom Plot
+
+How big big is this gapmider data set
+Use `nrow` to specify the number of rows in a data set and `ncol` to specify the number of columns in a dataset
+
+```{r}
+nrow(gapminder)
+ncol(gapminder)
+```
+
+I want to "filter" down to a subset of this data. I will use the **dplyr** package to help me.
+
+First I need to install it and then load it up... `install.packages("dplyr")` and then `library(dplyr)`
+
+```{r}
+library(dplyr)
+gap2007 <- filter(gapminder, year ==2007)
+head(gap2007)
+```
+What is the life expectancy of United States and Ireland in 2007?
+
+```{r}
+filter(gap2007, country == "Ireland")
+```
+ or 
+
+```{r}
+filter(gapminder, year == 2007, country == "Ireland")
+```
+
+What is the life expectancy in the United states in 2007?
+
+```{r}
+filter(gapminder, year == 2007, country == "United States")
+```
+> Q. Make a plot comparing 1977 and 2007 for all countries
+
+```{r}
+filter_data <- filter(gapminder, year %in% c(1977, 2007))
+ggplot(filter_data) + 
+  aes(gdpPercap, lifeExp, col = continent) + 
+  geom_point(alpha = 0.6) + 
+  facet_wrap(~year) +
+  labs(x = "GDP per Capita", y = "Life Expectancy", title = "Life Expectancy based on GDP per Capita", subtitle = "Graphs seperated by Year")
+```
+
+
+
+
