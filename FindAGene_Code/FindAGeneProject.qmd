@@ -1,0 +1,116 @@
+---
+title: "Find a Gene Project"
+format: pdf
+author: "Gavin Ambrose PID: A18548522"
+toc: true
+---
+
+## Read the fasta file
+
+First we need to read our alignment data 
+
+```{r, message=FALSE}
+library(bio3d)
+```
+
+```{r}
+alignment <- read.fasta("bag3_alignment.fasta")
+head(alignment)
+```
+
+## Create the matrix needed for the heat map
+
+```{r}
+alignment.mat <- seqidentity(alignment$ali)
+alignment.mat
+```
+
+## Create a heatmap
+
+```{r, message=FALSE}
+library(pheatmap)
+
+```
+
+
+```{r}
+pheatmap(alignment.mat,
+        margins = c(12,14)
+)
+
+```
+## Search PDB for Similar Atomic Resoultion Structures
+
+```{r}
+rowMeans(alignment.mat)
+```
+
+```{r}
+query.seq <- alignment$ali["Human_Protein", ]
+query.seq <- paste(query.seq, collapse = "")
+query.seq
+```
+
+```{r, cache=TRUE}
+blast_humanalignment <-  blast.pdb(query.seq)
+```
+
+```{r}
+head(blast_humanalignment)
+str(blast_humanalignment)
+```
+
+```{r}
+hits <- blast_humanalignment$hit.tbl
+head(hits)
+hits$pdb.id <- sub("_.*$", "", hits$subjectids)
+```
+
+```{r}
+unique(hits$pdb.id)
+```
+
+```{r}
+unique_hits <- hits[!duplicated(hits$pdb.id), ]
+```
+
+```{r}
+top3 <- unique_hits[1:3, ]
+top3[, c("pdb.id", "identity", "evalue")]
+```
+
+```{r}
+pdb_info <- pdb.annotate(top3$pdb.id)
+
+pdb_info[, c("structureId", "experimentalTechnique", "resolution", "source")]
+```
+
+```{r}
+final_table <- data.frame(
+  PDB_ID = top3$pdb.id,
+  Identity = top3$identity,
+  Evalue = top3$evalue,
+  Method = pdb_info$experimentalTechnique,
+  Resolution = pdb_info$resolution,
+  Source = pdb_info$source
+)
+
+final_table
+```
+
+## Print the PDB file for import
+
+```{r, eval=FALSE}
+write.csv(final_table, "Q8_PDB_table.csv", row.names = FALSE)
+```
+
+
+
+
+
+
+
+
+
+
+
