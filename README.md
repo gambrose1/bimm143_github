@@ -31,4 +31,4 @@ My classwork for [BIMM 143](https://bioboot.github.io/bimm143_W26/) at UC San Di
 *Capstone Projects*
 
 - Class 18 [Mini Project](Class18/HW18.md)
-- Class 19 [Pertussis Mini Project]()
+- Class 19 [Pertussis Mini Project](Class19/class19.md)
