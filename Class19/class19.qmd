@@ -1,0 +1,50 @@
+---
+title: "Class 19: Cancer Mutation Mini-Project INFO"
+author: "Gavin Ambrose PID: A18548522"
+format: html
+---
+
+## Background
+
+To identify somatic mutations in a tumor, DNA from the tumor is sequenced and compared to
+DNA from normal tissue in the same individual using variant calling algorithms.
+Comparison of tumor sequences to those from normal tissue (rather than ‘the human genome’)
+is important to ensure that the detected differences are not germline mutations.
+
+```{r, message=FALSE}
+library(bio3d)
+```
+
+```{r}
+Raw_data <- read.fasta("A18548522_mutant_seq.fa")
+Raw_data
+```
+
+We could score residue conservation
+
+```{r}
+mutation.sites <- which(conserv(Raw_data) < 1)
+
+
+```
+
+```{r}
+paste(Raw_data$ali[1, mutation.sites], mutation.sites, Raw_data$ali[2, mutation.sites])
+```
+
+Lets get the wt sequence
+
+Add some images
+
+![](Alphafold image of TKR.png)
+
+
+![](FFTMAP of RTK.png)
+
+
+
+
+
+
+
+
