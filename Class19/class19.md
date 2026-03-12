@@ -161,6 +161,10 @@ Lets get the wt sequence
 
 Add some images
 
+**Alphafold image of TKR**
+
 ![Alphafold image of TKR](Alphafold%20image%20of%20TKR.png)
+
+**FFTMAP of RTK**
 
 ![FFTMAP of RTK](FFTMAP%20of%20RTK.png)
