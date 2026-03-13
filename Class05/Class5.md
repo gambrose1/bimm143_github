@@ -1,4 +1,4 @@
-# Class 5: Data Vis with ggplot
+# Class 5: Data Visualization with ggplot
 Gavin Ambrose (PID: A18548522)
 
 - [Background](#background)
