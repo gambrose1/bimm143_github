@@ -36,10 +36,18 @@ Lets get the wt sequence
 
 Add some images
 
-![](Alphafold image of TKR.png)
+## Alphafold image of TKR 
 
+Next, let's add the mutated residues onto the protein structure and highlight the regions where cancer-associated mutations commonly occur. 
+![Alphafold image of TKR](Alphafold%20image%20of%20TKR.png) 
 
-![](FFTMAP of RTK.png)
+## FFTMAP of RTK 
+
+Next, let's generate a map of the protein that highlights the common binding domains and the ligands that interact with them. 
+
+![FFTMAP of RTK](FFTMAP%20of%20RTK.png) 
+
+We can then compare these binding domains with the mutation sites to see where common cancer-associated mutations overlap with important ligand-binding regions."
 
 
 
